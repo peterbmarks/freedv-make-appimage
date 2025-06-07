@@ -3,7 +3,7 @@
 # Requires the freedv-rade-build script to be run first
 # https://github.com/barjac/freedv-rade-build
 # pre-requisites:
-# icnsutils git 
+# sudo apt intstall icnsutils git 
 
 # to run sudo apt install libfuse2t64
 # to look inside ./FreeDV-x86_64.AppImage --appimage-mount /tmp/freedv
