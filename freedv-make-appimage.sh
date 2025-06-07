@@ -11,7 +11,7 @@
 
 APPNAME="FreeDV"
 DIR="$APPNAME.AppDir"
-BUILDDIR="freedv-rade/freedv-gui"
+BUILDDIR="../freedv-rade/freedv-gui"
 if [ -d "$DIR" ]; then
     echo "Deleting $DIR..."
     rm -rf "$DIR"
