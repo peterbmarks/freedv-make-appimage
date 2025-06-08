@@ -59,8 +59,16 @@ else
 fi
 ./appimagetool-x86_64.AppImage "$DIR"
 
+echo "Symlink model19_check3..."
+ln -s "$DIR/rade_src/model19_check3" "$DIR/usr/bin/model19_check3"
+
 echo "Customising AppRun script..."
-echo -e "#!/bin/bash $DIR/usr/bin/freedv\n" > "$DIR/AppRun"
+echo -e "#!/bin/bash" > "$DIR/AppRun"
+echo -e ". ./usr/bin/rade-venv/bin/activate" >> "$DIR/AppRun"
+echo -e "PYTHONPATH=usr/bin:$PYTHONPATH" >> "$DIR/AppRun"
+echo -e "logger \"###PYTHONPATH=$PYTHONPATH\"" >> "$DIR/AppRun"
+echo -e "logger \"###pwd = $(pwd)\"" >> "$DIR/AppRun"
+echo -e "$DIR/usr/bin/freedv" >> "$DIR/AppRun"
 chmod +x "$DIR/AppRun"
 
 echo "Done"
