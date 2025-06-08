@@ -23,8 +23,8 @@ fi
 echo "Creating $DIR..."
 mkdir "$DIR"
 
-echo "Creating desktop file..."
-echo -e "[Desktop Entry]\nName=$APPNAME\nExec=freedv\nIcon=$APPNAME\nType=Application\nCategories=Utility;" > "$DIR/FreeDV.desktop"
+echo "Copying desktop file..."
+cp FreeDV.desktop "$DIR/FreeDV.desktop"
 
 echo "Creating icon..."
 cp "$BUILDDIR/src/freedv.icns" "$DIR/."
@@ -65,12 +65,8 @@ echo "Symlink model19_check3..."
 ln -s  "$DIR/usr/bin/model19_check3" "$DIR/usr/bin/rade_src/model19_check3"
 
 # APPDIR is the path of mountpoint of the SquashFS image contained in the AppImage
-echo "Creating the AppRun script..."
-echo -e "#!/bin/bash -e" > "$DIR/AppRun"
-echo -e "cd \"$(dirname \"$0\")" >> "$DIR/AppRun"
-echo -e ". $APPDIR/usr/bin/rade-venv/bin/activate" >> "$DIR/AppRun"
-echo -e "PYTHONPATH=$APPDIR/usr/bin/rade_src:$PYTHONPATH" >> "$DIR/AppRun"
-echo -e "$APPDIR/usr/bin/freedv" >> "$DIR/AppRun"
+echo "Installing the AppRun script..."
+cp -f AppRun "$DIR/."
 chmod +x "$DIR/AppRun"
 
 echo "Done"
