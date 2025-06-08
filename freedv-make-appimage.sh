@@ -8,6 +8,8 @@
 # to run sudo apt install libfuse2t64
 # to look inside ./FreeDV-x86_64.AppImage --appimage-mount /tmp/freedv
 # https://gist.github.com/peterbmarks/e329cbaad9a52808f29458a91df67f55
+# https://docs.appimage.org/packaging-guide/environment-variables.html#id2
+
 
 APPNAME="FreeDV"
 DIR="$APPNAME.AppDir"
@@ -62,13 +64,13 @@ fi
 echo "Symlink model19_check3..."
 ln -s "$DIR/rade_src/model19_check3" "$DIR/usr/bin/model19_check3"
 
-echo "Customising AppRun script..."
+# APPDIR is the path of mountpoint of the SquashFS image contained in the AppImage
+echo "Creating the AppRun script..."
 echo -e "#!/bin/bash" > "$DIR/AppRun"
-echo -e ". ./usr/bin/rade-venv/bin/activate" >> "$DIR/AppRun"
-echo -e "PYTHONPATH=usr/bin:$PYTHONPATH" >> "$DIR/AppRun"
-echo -e "logger \"###PYTHONPATH=$PYTHONPATH\"" >> "$DIR/AppRun"
-echo -e "logger \"###pwd = $(pwd)\"" >> "$DIR/AppRun"
-echo -e "$DIR/usr/bin/freedv" >> "$DIR/AppRun"
+echo -e "cd \"$(dirname \"$0\")" >> "$DIR/AppRun"
+echo -e ". $APPDIR/usr/bin/rade-venv/bin/activate" >> "$DIR/AppRun"
+echo -e "PYTHONPATH=$APPDIR/usr/bin:$PYTHONPATH" >> "$DIR/AppRun"
+echo -e "$APPDIR/usr/bin/freedv" >> "$DIR/AppRun"
 chmod +x "$DIR/AppRun"
 
 echo "Done"
