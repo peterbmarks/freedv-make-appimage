@@ -24,20 +24,18 @@ mkdir "$DIR"
 echo "Creating desktop file..."
 echo -e "[Desktop Entry]\nName=$APPNAME\nExec=freedv\nIcon=$APPNAME\nType=Application\nCategories=Utility;" > "$DIR/FreeDV.desktop"
 
-echo "Create icon..."
+echo "Creating icon..."
 cp "$BUILDDIR/src/freedv.icns" "$DIR/."
 icns2png -x -s 256 -o . "$DIR/freedv.icns"
 mv "freedv_256x256x32.png" "$DIR/FreeDV.png" 
 rm "$DIR/freedv.icns"
 
 echo "Copy RADE source..."
-cp -r "$BUILDDIR/build_linux/rade_src" "$DIR/."
+mkdir -p "$DIR/usr/bin"
+cp -r "$BUILDDIR/build_linux/rade_src" "$DIR/usr/bin/."
 
 echo "Copy python venv..."
-cp -r "$BUILDDIR/rade-venv" "$DIR/."
-
-# echo "Copy embedded python..."
-# cp -r "$BUILDDIR/src/rade_src" "$DIR/."
+cp -r "$BUILDDIR/rade-venv" "$DIR/usr/bin/."
 
 echo "Bundle dependencies..."
 if test -f linuxdeploy-x86_64.AppImage; then
@@ -52,9 +50,6 @@ fi
 --icon-file "$DIR/$APPNAME".png \
 --executable $BUILDDIR/build_linux/src/freedv
 
-echo "Copy libraries..."
-mkdir "$DIR/bin"
-#cp "$BUILDDIR/build_linux/rade_build/src/librade.so.0.1" "$DIR/bin/."
 echo "Creating app image..."
 if test -f appimagetool-x86_64.AppImage; then
   echo "appimagetool exists"
@@ -63,5 +58,9 @@ else
     chmod +x appimagetool-x86_64.AppImage
 fi
 ./appimagetool-x86_64.AppImage "$DIR"
+
+echo "Customising AppRun script..."
+echo -e "#!/bin/bash $DIR/usr/bin/freedv\n" > "$DIR/AppRun"
+chmod +x "$DIR/AppRun"
 
 echo "Done"
