@@ -1,5 +1,6 @@
 #!/bin/bash -e
-cd "".
+# Change to the directory where this script is located
+cd "$(dirname "$(realpath "$0")")"
 PYTHONPATH=$APPDIR/usr/bin/rade_src:
 export PYTHONPATH
 . $APPDIR/usr/bin/rade-venv/bin/activate
