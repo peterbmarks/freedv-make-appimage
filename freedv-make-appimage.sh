@@ -62,14 +62,14 @@ fi
 ./appimagetool-x86_64.AppImage "$DIR"
 
 echo "Symlink model19_check3..."
-ln -s "$DIR/rade_src/model19_check3" "$DIR/usr/bin/model19_check3"
+ln -s  "$DIR/usr/bin/model19_check3" "$DIR/usr/bin/rade_src/model19_check3"
 
 # APPDIR is the path of mountpoint of the SquashFS image contained in the AppImage
 echo "Creating the AppRun script..."
-echo -e "#!/bin/bash" > "$DIR/AppRun"
+echo -e "#!/bin/bash -e" > "$DIR/AppRun"
 echo -e "cd \"$(dirname \"$0\")" >> "$DIR/AppRun"
 echo -e ". $APPDIR/usr/bin/rade-venv/bin/activate" >> "$DIR/AppRun"
-echo -e "PYTHONPATH=$APPDIR/usr/bin:$PYTHONPATH" >> "$DIR/AppRun"
+echo -e "PYTHONPATH=$APPDIR/usr/bin/rade_src:$PYTHONPATH" >> "$DIR/AppRun"
 echo -e "$APPDIR/usr/bin/freedv" >> "$DIR/AppRun"
 chmod +x "$DIR/AppRun"
 
