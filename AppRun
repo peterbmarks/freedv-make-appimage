@@ -1,5 +1,6 @@
 #!/bin/bash -e
 cd "".
-. $APPDIR/usr/bin/rade-venv/bin/activate
 PYTHONPATH=$APPDIR/usr/bin/rade_src:
-/usr/bin/freedv
+export PYTHONPATH
+. $APPDIR/usr/bin/rade-venv/bin/activate
+$APPDIR/usr/bin/freedv
