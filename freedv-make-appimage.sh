@@ -14,6 +14,10 @@
 APPNAME="FreeDV"
 DIR="$APPNAME.AppDir"
 BUILDDIR="../freedv-rade/freedv-gui"
+
+# Change to the directory where this script is located
+cd "$(dirname "$(realpath "$0")")"
+
 if [ -d "$DIR" ]; then
     echo "Deleting $DIR..."
     rm -rf "$DIR"

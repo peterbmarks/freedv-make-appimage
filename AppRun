@@ -3,4 +3,4 @@ cd "".
 PYTHONPATH=$APPDIR/usr/bin/rade_src:
 export PYTHONPATH
 . $APPDIR/usr/bin/rade-venv/bin/activate
-$APPDIR/usr/bin/freedv
+$APPDIR/usr/bin/freedv --verbose

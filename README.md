@@ -22,3 +22,16 @@ Error: importing radae_txe
 
 To look inside ./FreeDV-x86_64.AppImage --appimage-mount 
 https://docs.appimage.org/user-guide/run-appimages.html
+
+Usage: freedv [-h] [--verbose] [-f <str>] [-ut <str>] [-utmode <str>] [-rxfile <str>] [-txfile <str>] [-rxfeaturefile <str>] [-txfeaturefile <str>] [-txtime <num>] [-txattempts <num>]
+  -h, --help            	show this help message
+  --verbose             	generate verbose log messages
+  -f, --config=<str>    	Use different configuration file instead of the default.
+  -ut, --unit_test=<str>	Execute FreeDV in unit test mode.
+  -utmode:<str>         	Switch FreeDV to the given mode before UT execution.
+  -rxfile:<str>         	In UT mode, pipes given WAV file through receive pipeline.
+  -txfile:<str>         	In UT mode, pipes given WAV file through transmit pipeline.
+  -rxfeaturefile:<str>  	Capture RX features from RADE decoder into the provided file.
+  -txfeaturefile:<str>  	Capture TX features from FARGAN encoder into the provided file.
+  -txtime, --60=<num>   	In UT mode, the amount of time to transmit (default 60 seconds)
+  -txattempts, --1=<num>	In UT mode, the number of times to transmit (default 1)
