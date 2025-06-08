@@ -1,6 +1,11 @@
 # freedv-make-appimage
 Script to create an app image from the FreeDV GUI
 
+Requires the freedv-rade-build script to be run first
+https://github.com/barjac/freedv-rade-build
+## pre-requisites:
+# sudo apt intstall icnsutils git 
+
 # Not working yet!
 Well, the app launches and you can use legacy modes but RADE isn't running yet.
 
