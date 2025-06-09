@@ -48,6 +48,22 @@ else
     chmod +x linuxdeploy-x86_64.AppImage
 fi
 
+echo "Get python appimage..."
+wget https://github.com/niess/python-appimage/releases/download\
+/python3.14/python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
+
+chmod +x python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
+mv python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$DIR/usr/bin/python3"
+
+echo "Fix venv python links..."
+PYTHONAPPIMAGE="$DIR/usr/bin/python3"
+rm "$DIR/freedv-gui/rade-venv/bin/python"
+rm "$DIR/freedv-gui/rade-venv/bin/python3"
+rm "$DIR/freedv-gui/rade-venv/bin/python3.12"
+ln "$PYTHONAPPIMAGE" "$DIR/freedv-gui/rade-venv/bin/python"
+ln "$PYTHONAPPIMAGE" "$DIR/freedv-gui/rade-venv/bin/python3"
+ln "$PYTHONAPPIMAGE" "$DIR/freedv-gui/rade-venv/bin/python3.12"
+
 ./linuxdeploy-x86_64.AppImage --appdir "$DIR" \
 --desktop-file "$DIR/$APPNAME".desktop \
 --icon-file "$DIR/$APPNAME".png \
