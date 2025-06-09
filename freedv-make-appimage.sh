@@ -36,12 +36,9 @@ icns2png -x -s 256 -o . "$DIR/freedv.icns"
 mv "freedv_256x256x32.png" "$DIR/FreeDV.png" 
 rm "$DIR/freedv.icns"
 
-echo "Copy RADE source..."
+echo "Copy code..."
 mkdir -p "$DIR/usr/bin"
-cp -r "$BUILDDIR/build_linux/rade_src" "$DIR/usr/bin/."
-
-echo "Copy python venv..."
-cp -r "$BUILDDIR/rade-venv" "$DIR/usr/bin/."
+cp -r "$BUILDDIR" "$DIR/."
 
 echo "Bundle dependencies..."
 if test -f linuxdeploy-x86_64.AppImage; then
@@ -66,10 +63,11 @@ fi
 ./appimagetool-x86_64.AppImage "$DIR"
 
 echo "Symlink model19_check3..."
-ln -s  "$DIR/usr/bin/model19_check3" "$DIR/usr/bin/rade_src/model19_check3"
+ln -s -f "$DIR/freedv-gui/build_linux/rade_src/model19_check3" "$DIR/freedv-gui/build_linux/model19_check3"
 
 # APPDIR is the path of mountpoint of the SquashFS image contained in the AppImage
-echo "Installing the AppRun script..."
+echo "Installing the AppRun script in $DIR..."
+rm "$DIR/AppRun"
 cp -f AppRun "$DIR/."
 chmod +x "$DIR/AppRun"
 
