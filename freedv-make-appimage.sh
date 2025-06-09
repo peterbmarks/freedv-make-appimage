@@ -49,20 +49,25 @@ else
 fi
 
 echo "Get python appimage..."
-wget https://github.com/niess/python-appimage/releases/download\
-/python3.14/python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
+if test -f python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage; then
+  echo "python appimage exists"
+else
+  wget https://github.com/niess/python-appimage/releases/download/python3.14/python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
+  chmod +x python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
+fi
 
-chmod +x python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
 mv python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$DIR/usr/bin/python3"
 
 echo "Fix venv python links..."
-PYTHONAPPIMAGE="$DIR/usr/bin/python3"
-rm "$DIR/freedv-gui/rade-venv/bin/python"
-rm "$DIR/freedv-gui/rade-venv/bin/python3"
-rm "$DIR/freedv-gui/rade-venv/bin/python3.12"
-ln "$PYTHONAPPIMAGE" "$DIR/freedv-gui/rade-venv/bin/python"
-ln "$PYTHONAPPIMAGE" "$DIR/freedv-gui/rade-venv/bin/python3"
-ln "$PYTHONAPPIMAGE" "$DIR/freedv-gui/rade-venv/bin/python3.12"
+#rm "$DIR/freedv-gui/rade-venv/bin/python*"
+cd "$DIR/freedv-gui/rade-venv/bin"
+echo "Now in $(pwd)"
+ln -s -f ../../../usr/bin/python3 python
+ln -s -f ../../../usr/bin/python3 python3
+ln -s -f ../../../usr/bin/python3 python3.12 #not really
+ln -s -f ../../../usr/bin/python3 python3.14
+cd - # back to the previous directory
+echo "Now in $(pwd)"
 
 ./linuxdeploy-x86_64.AppImage --appdir "$DIR" \
 --desktop-file "$DIR/$APPNAME".desktop \
