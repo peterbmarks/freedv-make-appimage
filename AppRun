@@ -1,4 +1,5 @@
 #!/bin/bash -e
+PATH="$APPDIR/freedv-gui/rade-venv/bin":$PATH
 source "$APPDIR/freedv-gui/rade-venv/bin/activate"
 logger "In AppRun"
 PYTHONPATH="$APPDIR/freedv-gui/build_linux/rade_src:$PYTHONPATH" "$APPDIR/freedv-gui/build_linux/src/freedv $1 $2

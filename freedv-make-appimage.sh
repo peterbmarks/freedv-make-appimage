@@ -56,7 +56,24 @@ else
   chmod +x python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
 fi
 
-mv python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$DIR/usr/bin/python3"
+cp python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$DIR/usr/bin/python3"
+
+# echo "Create python virtual environment..."
+# export PATH="$DIR/usr/bin":$PATH
+# cd "$DIR"
+# python3 -m venv rade-venv --system-site-packages || { echo "ERROR: create venv failed"; exit 1; }
+# cd rade-venv
+# . ./bin/activate || { echo "ERROR: activate venv failed"; exit 1; }
+# # Clear cache in venv
+# python3 -m pip cache purge
+# python3 -m pip install --upgrade pip || echo "WARNING: pip upgrade failed"
+
+# # Install some python dependencies using pip
+# python3 -m pip install torch torchaudio --index-url https://download.pytorch.org/whl/cpu || { echo "torch pip install failed"; exit 1; }
+
+# python3 -m pip install matplotlib || { echo "ERROR: matplotlib pip install failed"; exit 1; }
+
+# python3 -m pip3 install NumPy || { echo "ERROR: numpy pip install failed"; exit 1; }
 
 echo "Fix venv python links..."
 #rm "$DIR/freedv-gui/rade-venv/bin/python*"
