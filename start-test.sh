@@ -6,6 +6,7 @@ APPDIR="$HOME/freedv-make-appimage/FreeDV.AppDir"
 #APPDIR=/tmp/.mount_FreeDVc5qK7Y
 echo "### appdir=$APPDIR"
 PATH="$APPDIR/freedv-gui/rade-venv/bin":$PATH
+python3 --version
 source "$APPDIR/freedv-gui/rade-venv/bin/activate"
 PYTHONPATH="$APPDIR/freedv-gui/build_linux/rade_src:$PYTHONPATH" \
 "$APPDIR/freedv-gui/build_linux/src/freedv" $1 $2
