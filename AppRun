@@ -1,6 +1,12 @@
 #!/bin/bash -e
-PATH="$APPDIR/freedv-gui/rade-venv/bin":$PATH
+echo "Hello from AppRun"
+export PATH="$APPDIR/freedv-gui/rade-venv/bin":$PATH
 source "$APPDIR/freedv-gui/rade-venv/bin/activate"
-logger "In AppRun"
-PYTHONPATH="$APPDIR/freedv-gui/build_linux/rade_src:$PYTHONPATH" "$APPDIR/freedv-gui/build_linux/src/freedv $1 $2
+logger "FreeDV In AppRun"
+export PYTHONPATH="$APPDIR/freedv-gui/build_linux/rade_src:$PYTHONPATH" 
+logger "Pythonpath = $PYTHONPATH"
+logger "python3 version = $(python3 --version)"
+logger "pwd = $(pwd)"
+logger "which python3 = $(which python3)"
+"$APPDIR/freedv-gui/build_linux/src/freedv" $1 $2
 deactivate

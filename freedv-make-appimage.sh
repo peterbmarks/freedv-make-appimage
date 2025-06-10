@@ -91,6 +91,12 @@ echo "Now in $(pwd)"
 --icon-file "$DIR/$APPNAME".png \
 --executable $BUILDDIR/build_linux/src/freedv
 
+# APPDIR is the path of mountpoint of the SquashFS image contained in the AppImage
+echo "Installing the AppRun script in $DIR..."
+rm "$DIR/AppRun"
+cp -f AppRun "$DIR/."
+chmod +x "$DIR/AppRun"
+
 echo "Creating app image..."
 if test -f appimagetool-x86_64.AppImage; then
   echo "appimagetool exists"
@@ -103,10 +109,6 @@ fi
 echo "Symlink model19_check3..."
 ln -s -f "$DIR/freedv-gui/build_linux/rade_src/model19_check3" "$DIR/freedv-gui/build_linux/model19_check3"
 
-# APPDIR is the path of mountpoint of the SquashFS image contained in the AppImage
-echo "Installing the AppRun script in $DIR..."
-rm "$DIR/AppRun"
-cp -f AppRun "$DIR/."
-chmod +x "$DIR/AppRun"
+
 
 echo "Done"
