@@ -30,7 +30,7 @@ mkdir "$DIR"
 echo "Copying desktop file..."
 cp FreeDV.desktop "$DIR/FreeDV.desktop"
 
-echo "Creating icon..."
+echo "Creating icon... if this fails install icnsutils"
 cp "$BUILDDIR/src/freedv.icns" "$DIR/."
 icns2png -x -s 256 -o . "$DIR/freedv.icns"
 mv "freedv_256x256x32.png" "$DIR/FreeDV.png" 
