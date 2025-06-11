@@ -6,8 +6,9 @@ https://github.com/barjac/freedv-rade-build
 ## pre-requisites:
 # sudo apt install icnsutils git libfuse-dev libfuse2t64
 
-# Not working yet!
-Well, the app launches and you can use legacy modes but RADE isn't running yet.
+# Tested on
+* Ubuntu 24.04.2 LTS
+
 
 If I start RADE the app exits after printing:
 15:59:37 [18] WARN /home/marksp/freedv-rade/freedv-gui/src/gui/dialogs/freedv_reporter.cpp:1997: Received duplicate user during connection process
@@ -35,3 +36,7 @@ Usage: freedv [-h] [--verbose] [-f <str>] [-ut <str>] [-utmode <str>] [-rxfile <
   -txfeaturefile:<str>  	Capture TX features from FARGAN encoder into the provided file.
   -txtime, --60=<num>   	In UT mode, the amount of time to transmit (default 60 seconds)
   -txattempts, --1=<num>	In UT mode, the number of times to transmit (default 1)
+
+Debug missing libraries:
+
+LD_DEBUG=libs ./FreeDV-x86_64.AppImage

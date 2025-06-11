@@ -12,33 +12,33 @@
 
 
 APPNAME="FreeDV"
-DIR="$APPNAME.AppDir"
+DESTDIR="$APPNAME.AppDir"
 BUILDDIR="../freedv-rade/freedv-gui"
 
 # Change to the directory where this script is located
 cd "$(dirname "$(realpath "$0")")"
 
-if [ -d "$DIR" ]; then
-    echo "Deleting $DIR..."
-    rm -rf "$DIR"
+if [ -d "$DESTDIR" ]; then
+    echo "Deleting $DESTDIR..."
+    rm -rf "$DESTDIR"
 else
-    echo "$DIR does not exist."
+    echo "$DESTDIR does not exist."
 fi
-echo "Creating $DIR..."
-mkdir "$DIR"
+echo "Creating $DESTDIR..."
+mkdir "$DESTDIR"
 
 echo "Copying desktop file..."
-cp FreeDV.desktop "$DIR/FreeDV.desktop"
+cp FreeDV.desktop "$DESTDIR/FreeDV.desktop"
 
 echo "Creating icon... if this fails install icnsutils"
-cp "$BUILDDIR/src/freedv.icns" "$DIR/."
-icns2png -x -s 256 -o . "$DIR/freedv.icns"
-mv "freedv_256x256x32.png" "$DIR/FreeDV.png" 
-rm "$DIR/freedv.icns"
+cp "$BUILDDIR/src/freedv.icns" "$DESTDIR/."
+icns2png -x -s 256 -o . "$DESTDIR/freedv.icns"
+mv "freedv_256x256x32.png" "$DESTDIR/FreeDV.png" 
+rm "$DESTDIR/freedv.icns"
 
 echo "Copy code..."
-mkdir -p "$DIR/usr/bin"
-cp -r "$BUILDDIR" "$DIR/."
+mkdir -p "$DESTDIR/usr/bin"
+cp -r "$BUILDDIR" "$DESTDIR/."
 
 echo "Bundle dependencies..."
 if test -f linuxdeploy-x86_64.AppImage; then
@@ -56,11 +56,11 @@ else
   chmod +x python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
 fi
 
-cp python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$DIR/usr/bin/python3"
+cp python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$DESTDIR/usr/bin/python3"
 
 # echo "Create python virtual environment..."
-# export PATH="$DIR/usr/bin":$PATH
-# cd "$DIR"
+# export PATH="$DESTDIR/usr/bin":$PATH
+# cd "$DESTDIR"
 # python3 -m venv rade-venv --system-site-packages || { echo "ERROR: create venv failed"; exit 1; }
 # cd rade-venv
 # . ./bin/activate || { echo "ERROR: activate venv failed"; exit 1; }
@@ -76,8 +76,8 @@ cp python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$DIR/usr/bin/python
 # python3 -m pip3 install NumPy || { echo "ERROR: numpy pip install failed"; exit 1; }
 
 echo "Fix venv python links..."
-#rm "$DIR/freedv-gui/rade-venv/bin/python*"
-cd "$DIR/freedv-gui/rade-venv/bin"
+#rm "$DESTDIR/freedv-gui/rade-venv/bin/python*"
+cd "$DESTDIR/freedv-gui/rade-venv/bin"
 echo "Now in $(pwd)"
 ln -s -f ../../../usr/bin/python3 python
 ln -s -f ../../../usr/bin/python3 python3
@@ -86,16 +86,24 @@ ln -s -f ../../../usr/bin/python3 python3.14
 cd - # back to the previous directory
 echo "Now in $(pwd)"
 
-./linuxdeploy-x86_64.AppImage --appdir "$DIR" \
---desktop-file "$DIR/$APPNAME".desktop \
---icon-file "$DIR/$APPNAME".png \
+# libraries not automatically picked up
+echo "Copy libraries..."
+mkdir -p "$DESTDIR/usr/lib"
+cp "$BUILDDIR/build_linux/rade_build/src/librade.so.0.1" "$DESTDIR/usr/lib."
+cd "$DESTDIR/usr/lib"
+ln -s "librade.so.0.1" "librade.so" 
+cd -
+
+./linuxdeploy-x86_64.AppImage --appdir "$DESTDIR" \
+--desktop-file "$DESTDIR/$APPNAME".desktop \
+--icon-file "$DESTDIR/$APPNAME".png \
 --executable $BUILDDIR/build_linux/src/freedv
 
 # APPDIR is the path of mountpoint of the SquashFS image contained in the AppImage
-echo "Installing the AppRun script in $DIR..."
-rm "$DIR/AppRun"
-cp -f AppRun "$DIR/."
-chmod +x "$DIR/AppRun"
+echo "Installing the AppRun script in $DESTDIR..."
+rm "$DESTDIR/AppRun"
+cp -f AppRun "$DESTDIR/."
+chmod +x "$DESTDIR/AppRun"
 
 echo "Creating app image..."
 if test -f appimagetool-x86_64.AppImage; then
@@ -104,10 +112,10 @@ else
     wget https://github.com/AppImage/AppImageKit/releases/latest/download/appimagetool-x86_64.AppImage
     chmod +x appimagetool-x86_64.AppImage
 fi
-./appimagetool-x86_64.AppImage "$DIR"
+./appimagetool-x86_64.AppImage "$DESTDIR"
 
 echo "Symlink model19_check3..."
-ln -s -f "$DIR/freedv-gui/build_linux/rade_src/model19_check3" "$DIR/freedv-gui/build_linux/model19_check3"
+ln -s -f "$DESTDIR/freedv-gui/build_linux/rade_src/model19_check3" "$DESTDIR/freedv-gui/build_linux/model19_check3"
 
 
 
