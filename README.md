@@ -40,3 +40,6 @@ Usage: freedv [-h] [--verbose] [-f <str>] [-ut <str>] [-utmode <str>] [-rxfile <
 Debug missing libraries:
 
 LD_DEBUG=libs ./FreeDV-x86_64.AppImage
+
+
+Interesting example: https://github.com/gmagno/spyci/blob/83935c3c07f1566fbdbaef31f7fbb1f6c92feaf5/appimage/build-appimage.sh#L7
