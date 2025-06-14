@@ -27,11 +27,12 @@ fi
 --executable ~/freedv-rade/freedv-gui/build_linux/src/freedv \
 --appdir "$DESTDIR" \
 --icon-file FreeDVIcon.png \
+--custom-apprun=AppRun.sh \
 --desktop-file FreeDV.desktop
 
 # create the virtual environment (copied from Brian's build script)
 cd FreeDV.AppDir
-python3 -m venv rade-venv --system-site-packages # || { echo "ERROR: create venv failed"; exit 1; }
+python3 -m venv rade-venv # || { echo "ERROR: create venv failed"; exit 1; }
 # Activate it
 source rade-venv/bin/activate # || { echo "ERROR: activate venv failed"; exit 1; }
 
@@ -59,9 +60,9 @@ echo "### Now in $(pwd)"
 cp -r "$BUILDDIR/build_linux/rade_src/model19_check3" "$DESTDIR/."
 
 # Copy our custom AppRun
-echo "Copy custom AppRun..."
-rm "$DESTDIR/AppRun"
-cp -f AppRun "$DESTDIR/AppRun"
+# echo "Copy custom AppRun..."
+# rm "$DESTDIR/AppRun"
+# cp -f AppRun "$DESTDIR/AppRun"
 
 # Create the output
 ./linuxdeploy-x86_64.AppImage \
