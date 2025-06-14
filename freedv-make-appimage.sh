@@ -41,7 +41,7 @@ pip cache purge
 pip install --upgrade pip || echo "WARNING: pip upgrade failed"
 pip3 install torch torchaudio --index-url https://download.pytorch.org/whl/cpu
 pip3 install matplotlib
-pip3 install NumPy
+pip3 install numpy
 cd -
 
 echo "Fix venv python links..."
@@ -55,9 +55,12 @@ cd - # back to the previous directory
 echo "### Now in $(pwd)"
 
 # TODO copy the models and symlink
+echo "Copying rade_src..."
 # ls freedv-rade/freedv-gui/build_linux/rade_src/model
 # model05/        model17/        model18/        model19/        model19_check3/ model_bbfm_01/  
 cp -r "$BUILDDIR/build_linux/rade_src" "$DESTDIR/."
+cd "$DESTDIR"
+ln -s "$BUILDDIR/build_linux/rade_src/model19_check3" "$DESTDIR/."
 
 # Create the output
 ./linuxdeploy-x86_64.AppImage \
