@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 APPNAME="FreeDV"
 DESTDIR="$APPNAME.AppDir"
@@ -41,25 +41,30 @@ pip install --upgrade pip || echo "WARNING: pip upgrade failed"
 pip3 install torch torchaudio --index-url https://download.pytorch.org/whl/cpu
 pip3 install matplotlib
 pip3 install NumPy
+cd -
 
 echo "Fix venv python links..."
+echo "Now in $(pwd)"
 cd "$DESTDIR/rade-venv/bin"
 echo "Now in $(pwd)"
-ln -s -f ../../../usr/bin/python3 python
-ln -s -f ../../../usr/bin/python3 python3
-ln -s -f ../../../usr/bin/python3 python3.14
+ln -s -f ../../usr/bin/python3 python
+ln -s -f ../../usr/bin/python3 python3
+ln -s -f ../../usr/bin/python3 python3.12
 cd - # back to the previous directory
 echo "Now in $(pwd)"
 
+# TODO copy the models and symlink
+# ls freedv-rade/freedv-gui/build_linux/rade_src/model
+# model05/        model17/        model18/        model19/        model19_check3/ model_bbfm_01/  
+cp -r "$BUILDDIR/build_linux/rade_src/model19_check3" "$DESTDIR/."
+
 # Copy our custom AppRun
-cp -f AppRun Play.AppDir/.
+cp -f AppRun "$DESTDIR/."
 
 # Create the output
 ./linuxdeploy-x86_64.AppImage \
---appdir FreeDV.AppDir \
+--appdir "$DESTDIR" \
 --output appimage
 
-# TODO copy the models and symlink
-ln -s -f "$DESTDIR/freedv-gui/build_linux/rade_src/model19_check3" "$DESTDIR/freedv-gui/build_linux/model19_check3"
 
 echo "Done"
