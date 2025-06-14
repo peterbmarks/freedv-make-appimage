@@ -1,8 +1,6 @@
 #!/bin/bash -e
 echo "In AppRun"
-#export PATH="$APPDIR/freedv-gui/rade-venv/bin":$PATH
 source "$APPDIR/rade-venv/bin/activate"
-#export PYTHONPATH="$APPDIR/freedv-gui/build_linux/rade_src:$PYTHONPATH" 
 echo "Pythonpath = $PYTHONPATH"
 export LD_LIBRARY_PATH="${APPIMAGE_LIBRARY_PATH}:${APPDIR}/usr/lib:${LD_LIBRARY_PATH}"
 "$APPDIR/usr/bin/freedv" $1 $2

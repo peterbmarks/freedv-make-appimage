@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 APPNAME="FreeDV"
 DESTDIR="$APPNAME.AppDir"
@@ -51,7 +51,7 @@ ln -s -f ../../usr/bin/python3 python
 ln -s -f ../../usr/bin/python3 python3
 ln -s -f ../../usr/bin/python3 python3.12
 cd - # back to the previous directory
-echo "Now in $(pwd)"
+echo "### Now in $(pwd)"
 
 # TODO copy the models and symlink
 # ls freedv-rade/freedv-gui/build_linux/rade_src/model
@@ -59,12 +59,13 @@ echo "Now in $(pwd)"
 cp -r "$BUILDDIR/build_linux/rade_src/model19_check3" "$DESTDIR/."
 
 # Copy our custom AppRun
-cp -f AppRun "$DESTDIR/."
+echo "Copy custom AppRun..."
+rm "$DESTDIR/AppRun"
+cp -f AppRun "$DESTDIR/AppRun"
 
 # Create the output
 ./linuxdeploy-x86_64.AppImage \
 --appdir "$DESTDIR" \
 --output appimage
-
 
 echo "Done"
