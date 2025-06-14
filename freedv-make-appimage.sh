@@ -57,12 +57,7 @@ echo "### Now in $(pwd)"
 # TODO copy the models and symlink
 # ls freedv-rade/freedv-gui/build_linux/rade_src/model
 # model05/        model17/        model18/        model19/        model19_check3/ model_bbfm_01/  
-cp -r "$BUILDDIR/build_linux/rade_src/model19_check3" "$DESTDIR/."
-
-# Copy our custom AppRun
-# echo "Copy custom AppRun..."
-# rm "$DESTDIR/AppRun"
-# cp -f AppRun "$DESTDIR/AppRun"
+cp -r "$BUILDDIR/build_linux/rade_src" "$DESTDIR/."
 
 # Create the output
 ./linuxdeploy-x86_64.AppImage \
