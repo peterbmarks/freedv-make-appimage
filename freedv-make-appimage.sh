@@ -37,11 +37,11 @@ python3 -m venv rade-venv # || { echo "ERROR: create venv failed"; exit 1; }
 source rade-venv/bin/activate # || { echo "ERROR: activate venv failed"; exit 1; }
 
 # Clear cache in venv
-pip cache purge
-pip install --upgrade pip || echo "WARNING: pip upgrade failed"
+pip3 cache purge
+pip3 install --upgrade pip || echo "WARNING: pip upgrade failed"
+pip3 install "numpy<2"
 pip3 install torch torchaudio --index-url https://download.pytorch.org/whl/cpu
 pip3 install matplotlib
-pip3 install numpy
 cd -
 
 echo "Fix venv python links..."
