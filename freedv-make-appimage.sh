@@ -25,6 +25,10 @@ fi
 
 ./linuxdeploy-x86_64.AppImage \
 --executable ~/freedv-rade/freedv-gui/build_linux/src/freedv \
+--executable /usr/bin/dirname \
+--executable /usr/bin/find \
+--executable /usr/bin/head \
+--executable /usr/bin/grep \
 --appdir "$APPDIR" \
 --icon-file FreeDVIcon.png \
 --custom-apprun=AppRun.sh \
@@ -60,9 +64,9 @@ echo "Fix venv python links..."
 echo "Now in $(pwd)"
 cd "$APPDIR/rade-venv/bin"
 echo "Now in $(pwd)"
-ln -s -f ../../opt/python/bin/python3 python
-ln -s -f ../../opt/python/bin/python3 python3
-ln -s -f ../../opt/python/bin/python3 python3.12
+ln -s --relative -f ../../opt/python/bin/python3 python
+ln -s --relative -f ../../opt/python/bin/python3 python3
+ln -s --relative -f ../../opt/python/bin/python3 python3.12
 cd - # back to the previous directory
 echo "### Now in $(pwd)"
 
