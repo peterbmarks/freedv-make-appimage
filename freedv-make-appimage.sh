@@ -30,21 +30,21 @@ fi
 --custom-apprun=AppRun.sh \
 --desktop-file FreeDV.desktop
 
-echo "Get python appimage..."
-export PYTHONFILENAME="python3.12.11-cp312-cp312-manylinux_2_28_x86_64.AppImage"
-export PYTHONAPPIMAGEURL="https://github.com/niess/python-appimage/releases/download/python3.12/python3.12.11-cp312-cp312-manylinux_2_28_x86_64.AppImage"
+echo "Get standalone python..."
+export PYTHONFILENAME="release-3.12-x86_64.tar.gz"
+export PYTHONAPPIMAGEURL="https://github.com/scc-tw/standalone-python/releases/download/release-2024-04-29/release-3.12-x86_64.tar.gz"
 if test -f "$PYTHONFILENAME"; then
   echo "python appimage exists"
 else
   wget "$PYTHONAPPIMAGEURL"
   chmod +x "$PYTHONFILENAME"
 fi
-mkdir -p "$APPDIR/bin"
-cp "$PYTHONFILENAME" "$APPDIR/bin/python3.AppImage"
+tar xzvf "$PYTHONFILENAME" # unpacks to an opt tree
+mv opt "$APPDIR/."
 
 # create the virtual environment (copied from Brian's build script)
 cd "$APPDIR"
-bin/python3.AppImage -m venv rade-venv # || { echo "ERROR: create venv failed"; exit 1; }
+opt/python/bin/python3 -m venv rade-venv # || { echo "ERROR: create venv failed"; exit 1; }
 # Activate it
 source rade-venv/bin/activate # || { echo "ERROR: activate venv failed"; exit 1; }
 
@@ -60,9 +60,9 @@ echo "Fix venv python links..."
 echo "Now in $(pwd)"
 cd "$APPDIR/rade-venv/bin"
 echo "Now in $(pwd)"
-ln -s -f ../../bin/python3.AppImage python
-ln -s -f ../../bin/python3.AppImage python3
-ln -s -f ../../bin/python3.AppImage python3.12
+ln -s -f ../../opt/python/bin/python3 python
+ln -s -f ../../opt/python/bin/python3 python3
+ln -s -f ../../opt/python/bin/python3 python3.12
 cd - # back to the previous directory
 echo "### Now in $(pwd)"
 
