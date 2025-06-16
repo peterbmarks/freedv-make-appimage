@@ -64,9 +64,11 @@ echo "Fix venv python links..."
 echo "Now in $(pwd)"
 cd "$APPDIR/rade-venv/bin"
 echo "Now in $(pwd)"
-ln -s --relative -f ../../opt/python/bin/python3 python
-ln -s --relative -f ../../opt/python/bin/python3 python3
-ln -s --relative -f ../../opt/python/bin/python3 python3.12
+rm python python3 python3.12 python3.12-real
+ln -s --relative ../../opt/python/bin/python3 python
+ln -s --relative ../../opt/python/bin/python3 python3
+ln -s --relative ../../opt/python/bin/python3 python3.12
+ln -s --relative ../../opt/python/bin/python3 python3.12-real
 cd - # back to the previous directory
 echo "### Now in $(pwd)"
 
