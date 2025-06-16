@@ -6,17 +6,11 @@ https://github.com/barjac/freedv-rade-build
 ## pre-requisites:
 # sudo apt install icnsutils git libfuse-dev libfuse2t64
 
-# Tested on
+# Works on
 * Ubuntu 24.04.2 LTS
 
-
-If I start RADE the app exits after printing:
-15:59:37 [18] WARN /home/marksp/freedv-rade/freedv-gui/src/gui/dialogs/freedv_reporter.cpp:1997: Received duplicate user during connection process
-15:59:37 [19] INFO /home/marksp/freedv-rade/freedv-gui/src/util/SocketIoClient.cpp:230: socket.io connect
-model file: 
-import_array returned: 0
-ModuleNotFoundError: No module named 'radae_txe'
-Error: importing radae_txe
+# Fails on
+* Ubuntu 25.04 - Error import ctypes
 
 
 # Useful notes
