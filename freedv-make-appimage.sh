@@ -13,6 +13,17 @@ if [ -d "$APPDIR" ]; then
 else
     echo "$APPDIR does not exist."
 fi
+mkdir -p "$APPDIR/usr/bin"
+
+echo "Get python appimage..."
+if test -f python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage; then
+  echo "python appimage exists"
+else
+  wget https://github.com/niess/python-appimage/releases/download/python3.14/python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
+  chmod +x python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage
+fi
+cp python3.14.0b1-cp314-cp314-manylinux2014_x86_64.AppImage "$APPDIR/usr/bin/python3"
+
 
 echo "Bundle dependencies..."
 if test -f linuxdeploy-x86_64.AppImage; then
@@ -23,7 +34,7 @@ else
 fi
 
 ./linuxdeploy-x86_64.AppImage \
---executable /usr/bin/python3 \
+#--executable /usr/bin/python3 \
 --executable ~/freedv-rade/freedv-gui/build_linux/src/freedv \
 --appdir "$APPDIR" \
 --icon-file FreeDVIcon.png \
@@ -31,8 +42,8 @@ fi
 --desktop-file FreeDV.desktop
 
 # create the virtual environment (copied from Brian's build script)
-cd FreeDV.AppDir
-python3 -m venv rade-venv # || { echo "ERROR: create venv failed"; exit 1; }
+cd "$APPDIR"
+usr/bin/python3 -m venv rade-venv # || { echo "ERROR: create venv failed"; exit 1; }
 # Activate it
 source rade-venv/bin/activate # || { echo "ERROR: activate venv failed"; exit 1; }
 
